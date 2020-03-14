@@ -43,6 +43,7 @@ if is_prod:
         'django.contrib.staticfiles',
 
         # build app
+        'apps.board',
     ]
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -53,6 +54,9 @@ if is_prod:
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+        # build app
+        'apps.board',
     ]
 else:
     SECRET_KEY = local_secret_key 
@@ -150,5 +154,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_RERIRECT_URL = 'home'
 
-
 APPEND_SLASH = True
+
+MEDIA_URL = '/res/'
+MEDIA_ROOT = join(BASE_DIR, 'media')
