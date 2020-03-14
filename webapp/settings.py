@@ -72,6 +72,7 @@ else:
         'django.contrib.staticfiles',
 
         # build app
+        'apps.board',
     ]
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -88,12 +89,13 @@ else:
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -156,5 +158,5 @@ LOGIN_RERIRECT_URL = 'home'
 
 APPEND_SLASH = True
 
-MEDIA_URL = '/res/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')
