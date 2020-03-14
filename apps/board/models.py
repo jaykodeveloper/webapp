@@ -8,7 +8,7 @@ class Board(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     title = models.CharField(blank=False, max_length=255)
     body = models.TextField(blank=False)
-    image = models.ImageField(upload_to='time_line_photo/%Y/%m/%d')
+    image = models.ImageField(upload_to='time_line_photo')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
