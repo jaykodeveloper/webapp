@@ -14,7 +14,10 @@ import dj_database_url
 import os
 
 from os.path import abspath, dirname, join
-from .local_settings import *
+try:
+    from .local_settings import *
+except:
+    pass
 
 is_prod = os.environ.get('IS_HEROKU', None)
 
@@ -29,7 +32,8 @@ if is_prod:
     SECRET_KEY = ['SECRETY_KEY']
     DEBUG = False
     ALLOWED_HOSTS = ['*']
-    DATABASES ={'default': dj_database_url.config(conn_max_age=600, ssl_require=True)} 
+    # DATABASES ={'default': dj_database_url.config(conn_max_age=600, ssl_require=True)} 
+    DATABASES = ['DATABASE_URL']
     INSTALLED_APPS = [
         'django.contrib.admin',
         'django.contrib.auth',
@@ -44,6 +48,7 @@ if is_prod:
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -140,4 +145,7 @@ ROOT_URLCONF = 'webapp.urls'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [join(BASE_DIR, 'static')]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
