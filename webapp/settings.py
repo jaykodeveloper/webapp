@@ -43,7 +43,6 @@ if is_prod:
         'django.contrib.staticfiles',
 
         # build app
-        'apps.users'
     ]
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -69,7 +68,6 @@ else:
         'django.contrib.staticfiles',
 
         # build app
-        'apps.users'
     ]
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -149,3 +147,8 @@ STATIC_ROOT = join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+LOGIN_RERIRECT_URL = 'home'
+
+
+APPEND_SLASH = True
