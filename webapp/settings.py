@@ -159,8 +159,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-LOGIN_RERIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_RERIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 APPEND_SLASH = True
 
