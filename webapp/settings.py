@@ -41,6 +41,7 @@ if is_prod:
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'whitenoise.runserver_nostatic',
 
         # build app
         'apps.board',
@@ -55,8 +56,6 @@ if is_prod:
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-        # build app
-        'apps.board',
     ]
 else:
     SECRET_KEY = local_secret_key 
@@ -70,6 +69,7 @@ else:
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'whitenoise.runserver_nostatic',
 
         # build app
         'apps.board',
@@ -77,6 +77,7 @@ else:
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -155,6 +156,7 @@ STATICFILES_DIRS = [join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_RERIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 APPEND_SLASH = True
 

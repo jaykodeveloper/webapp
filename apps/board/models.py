@@ -16,7 +16,7 @@ class Board(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('article_detail', args=[str(Self.id)])
+        return reverse('article_detail', args=[str(self.id)])
 
     class Meta:
         ordering = ['-created']
