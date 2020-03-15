@@ -46,6 +46,7 @@ if is_prod:
 
         # build app
         'apps.board',
+        'apps.accounts',
     ]
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -75,6 +76,7 @@ else:
 
         # build app
         'apps.board',
+        'apps.accounts',
     ]
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -164,3 +166,5 @@ APPEND_SLASH = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')
+
+# AUTH_USER_MODEL = 'users.User'

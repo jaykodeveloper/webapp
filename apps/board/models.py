@@ -2,10 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
+
 # Create your models here.
 
 class Board(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='boards')
     title = models.CharField(blank=False, max_length=255)
     body = models.TextField(blank=False)
     image = models.ImageField(upload_to='time_line_photo')
