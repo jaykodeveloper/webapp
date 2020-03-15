@@ -21,6 +21,6 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     path('', include('apps.board.urls')),
     path('admin/', admin.site.urls),
-    path('users/', include('apps.accounts.urls')),
-    path('accounts/', include('rest_framework.urls'))
+    path('users/', include('apps.accounts.urls')), # detail of users
+    path('accounts/', include('rest_framework.urls')) # login and logout
 ]
