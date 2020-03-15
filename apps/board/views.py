@@ -2,8 +2,20 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic.detail import DetailView
-from .models import Board
+from rest_framework import generics
 
+from .models import Board
+from .serializers import BoardSerializer
+
+class BoardList(generics.ListCreateAPIView):
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+
+class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+
+"""
 class BoardList(ListView):
     model = Board
     template_name_suffix = '_list'
@@ -28,3 +40,4 @@ class BoardDelete(DeleteView):
 class BoardDetail(DetailView):
     model = Board
     template_name_suffix = '_detail'
+"""

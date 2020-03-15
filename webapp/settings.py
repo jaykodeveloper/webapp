@@ -42,6 +42,7 @@ if is_prod:
         'django.contrib.messages',
         'django.contrib.staticfiles',
         'whitenoise.runserver_nostatic',
+        'rest_framework',
 
         # build app
         'apps.board',
@@ -70,6 +71,7 @@ else:
         'django.contrib.messages',
         'django.contrib.staticfiles',
         'whitenoise.runserver_nostatic',
+        'rest_framework',
 
         # build app
         'apps.board',
