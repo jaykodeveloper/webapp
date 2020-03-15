@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic.detail import DetailView
-from rest_framework import generics
+from rest_framework import generics, serializers
 
 from .models import Board
 from .serializers import BoardSerializer
@@ -11,18 +11,17 @@ from .serializers import BoardSerializer
 class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
+    # author = serializers.PrimaryKeyRelatedField(
+    #     read_only=True, default=serializers.CurrentUserDefault()
+    # )
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
-# class UserList(generics.ListAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-# class UserDetail(generics.RetrieveAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
 
 """
 class BoardList(ListView):
