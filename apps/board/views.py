@@ -19,8 +19,14 @@ class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    author = serializers.PrimaryKeyRelatedField(
-        read_only=True, default=serializers.CurrentUserDefault()
+    # author = serializers.PrimaryKeyRelatedField(
+    #     read_only=True, default=serializers.CurrentUserDefault()
+    # )
+    author = serializers.HyperlinkedRelatedField(
+        view_name='users-detail', 
+        lookup_field='username',
+        read_only=True, 
+        default=serializers.CurrentUserDefault()
     )
 
     def perform_create(self, serializer):

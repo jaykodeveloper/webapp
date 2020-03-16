@@ -46,7 +46,7 @@ if is_prod:
 
         # build app
         'apps.board',
-        'apps.accounts',
+        'apps.users',
     ]
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -76,7 +76,7 @@ else:
 
         # build app
         'apps.board',
-        'apps.accounts',
+        'apps.users',
     ]
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -168,3 +168,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')
 
 # AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
