@@ -16,9 +16,9 @@ class BoardSerializer(serializers.HyperlinkedModelSerializer):
     # )
     author = serializers.ReadOnlyField(source='author.username')
     url = serializers.HyperlinkedIdentityField(
-        view_name="board-detail",
+        view_name="board:board-detail",
         read_only=True,
-        lookup_field='id')
+        lookup_field='pk')
     class Meta:
         model = Board
         # fields = ('id', 'author', 'title', 'body', 'image', 'created','updated')

@@ -6,7 +6,7 @@ from .views import BoardList, BoardDetail, api_root
 app_name = 'board'
 urlpatterns = [
     path('boards/', BoardList.as_view(), name='board-list'),
-    path('boards/<int:pk>', BoardDetail.as_view(), name='board-detail'),
+    path('boards/<int:pk>/', BoardDetail.as_view(), name='board-detail'),
     path('', api_root),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

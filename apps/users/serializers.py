@@ -9,15 +9,15 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     #     many=True, queryset=Board.objects.all()
     # )
     boards = serializers.HyperlinkedRelatedField(
-        view_name='board-detail',
-        lookup_field='user_id',
+        view_name='board:board-detail',
+        lookup_field='pk',
         many=True, 
         queryset=Board.objects.all()
     )
-    # url = serializers.HyperlinkedIdentityField(
-    #     read_only=True,
-    #     lookup_field='id',
-    #     view_name="users:user-detail")
+    url = serializers.HyperlinkedIdentityField(
+        read_only=True,
+        lookup_field='pk',
+        view_name="users:user-detail")
     class Meta:
         model = User
         # fields = ('id', 'username', 'boards')
