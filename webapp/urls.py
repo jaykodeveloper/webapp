@@ -17,10 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
+import knox
+
 
 urlpatterns = [
-    path('', include('apps.board.urls', namespace='board')),
+    path('', include('apps.frontend.urls', namespace='home')),
+    path('boards/', include('apps.board.urls', namespace='board')),
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.urls', namespace='users')), # detail of users
-    path('accounts/', include('rest_framework.urls')) # login and logout
+    path('users/accounts/', include('knox.urls')), # detail of users
+    # path('accounts/', include('rest_framework.urls')) # login and logout
 ]

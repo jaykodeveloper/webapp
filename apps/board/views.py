@@ -15,6 +15,7 @@ def api_root(request, format=None):
         'boards': reverse('board:board-list', request=request, format=format)
     })
 
+
 class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer

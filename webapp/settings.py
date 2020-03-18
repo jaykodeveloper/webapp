@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import dj_database_url
 import os
+# from .pageNumber  import *
 
 from os.path import abspath, dirname, join
 try:
@@ -47,8 +48,13 @@ if is_prod:
         # build app
         'apps.board',
         'apps.users',
+        'apps.frontend',
+        'corsheaders',
+        'knox',
     ]
     MIDDLEWARE = [
+        'corsheaders.middleware.CorsMiddleware',
+        'django.middleware.common.CommonMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -77,8 +83,13 @@ else:
         # build app
         'apps.board',
         'apps.users',
+        'apps.frontend',
+        'corsheaders',
+        'knox',
     ]
     MIDDLEWARE = [
+        'corsheaders.middleware.CorsMiddleware',
+        'django.middleware.common.CommonMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -160,7 +171,7 @@ STATICFILES_DIRS = [join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_RERIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/users/'
 
 APPEND_SLASH = True
 
@@ -169,7 +180,14 @@ MEDIA_ROOT = join(BASE_DIR, 'media')
 
 # AUTH_USER_MODEL = 'users.User'
 
+# REST_FRAMEWORK = {
+#     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'DEFAULT_PAGINATION_CLASS': 'PageNumberPaginationDataOnly',
+#     'PAGE_SIZE': 10
+# }
+DEFAULT_PAGINATION_CLASS: 'pageNumber.PageNumberPaginationDataOnly'
+
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
 }
