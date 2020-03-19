@@ -11,18 +11,13 @@ export class Alerts extends Component {
 
     componentDidMount() {
         const {error, alert, message } = this.props;
-        console.log('bar')
         if(error !== prevProps.error){
-            console.log("foo")
             if(error.msg.title) alert.error(`Title: ${error.msg.title.join()}`);
             if(error.msg.image) alert.error(`Image: ${error.msg.image.join()}`);
             if(error.msg.detail) alert.error("Credential needed!")
         }
         if(message !== prevProps.message){
             if(message.deletedBoard) alert.success(message.deletedBoard);
-        }
-        else{
-            console.log("hi")
         }
     }
     render(){

@@ -15,7 +15,6 @@ urlpatterns = [
     path('accounts/register/', RegistrationAPI.as_view(), name='user-register'),
     path('accounts/login/', LoginAPI.as_view(), name='user-login'),
     path('accounts/logout/', knox_views.LogoutView.as_view(), name='user-logout'),
-    # path('', api_root)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

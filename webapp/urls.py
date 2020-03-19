@@ -22,9 +22,9 @@ import knox
 
 urlpatterns = [
     path('', include('apps.frontend.urls', namespace='home')),
-    path('boards/', include('apps.board.urls', namespace='board')),
+    path('api/boards/', include('apps.board.urls', namespace='board')),
     path('admin/', admin.site.urls),
-    path('users/', include('apps.users.urls', namespace='users')), # detail of users
-    path('users/accounts/', include('knox.urls')), # detail of users
+    path('api/users/', include('apps.users.urls', namespace='users')), # detail of users
+    path('api/users/accounts/', include('knox.urls')), # detail of users
     # path('accounts/', include('rest_framework.urls')) # login and logout
 ]
