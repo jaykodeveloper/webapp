@@ -1,4 +1,4 @@
-import { GET_BOARDS, DELETE_BOARD } from "../actions/types.js";
+import { GET_BOARDS, DELETE_BOARD, ADD_BOARD } from "../actions/types.js";
 
 const initialState = {
     boards : []
@@ -15,6 +15,11 @@ export default function(state=initialState, action) {
             return {
                 ...state,
                 boards:state.boards.filter(board => board.id !== action.payload)
+            }
+        case ADD_BOARD:
+            return {
+                ...state,
+                boards:[...state.boards, action.payload]
             }
         default:
             return state;
