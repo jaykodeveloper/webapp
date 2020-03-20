@@ -11,6 +11,8 @@ import Dashboard from './boards/Dashboard'
 import store from '../store';
 import Login from './users/Login'
 import SignUp from './users/SignUp'
+import PrivateRoute from './PrivateRoute'
+import { loadUser } from '../actions/users'
 
 const alertOptions = {
     timeout: 3000,
@@ -18,6 +20,9 @@ const alertOptions = {
 }
 
 class App extends Component {
+    componentDidMount(){
+        store.dispatch(loadUser())
+    }
     render() {
         return (
             <Provider store={store}>
@@ -28,7 +33,7 @@ class App extends Component {
                             {/* <Alerts /> */}
                             <div className="container">
                                 <Switch>
-                                    <Route exact path="/" component={Dashboard} />
+                                    <PrivateRoute exact path="/" component={Dashboard} />
                                     <Route exact path="/register" component={SignUp} />
                                     <Route exact path="/login" component={Login} />
                                 </Switch>

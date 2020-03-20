@@ -1,5 +1,8 @@
 import React, {Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/users'
 
 export class Login extends Component{
     constructor(props){
@@ -9,10 +12,14 @@ export class Login extends Component{
             password: "",
         }
     }
+    static propTypes = {
+        login: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool
+    }
 
     onSubmit = e =>{
         e.preventDefault();
-        console.log("login submit");
+        this.props.login(this.state.username, this.state.password)
     }
 
     onChange = e =>this.setState({
@@ -20,13 +27,15 @@ export class Login extends Component{
         })
 
     render(){
+        if (this.props.isAuthenticated) {
+            return <Redirect to="/" />;
+        }
         const { username, email, password, password2 } = this.state;
         return(
             <div className="col-md-6 m-auto">
                 <div className="card card-body mt-5">
                     <h2 className="text-center">Login</h2>
                     <form onSubmit={this.onSubmit}>
-
                         <div className="form-group">
                             <label>Username</label>
                             <input
@@ -48,7 +57,11 @@ export class Login extends Component{
                               />
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary">Login</button>
+                            <button 
+                              type="submit" 
+                              className="btn btn-primary"
+                              >
+                              Login</button>
                         </div>
                         <p>
                             Don't have an account? <Link to="/register">Sign Up</Link>
@@ -61,4 +74,9 @@ export class Login extends Component{
     }
 }
 
-export default Login
+const mapStateToProps = state => ({
+    isAuthenticated: state.users.isAuthenticated
+})
+
+
+export default connect(mapStateToProps, {login})(Login);

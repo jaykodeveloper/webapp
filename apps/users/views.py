@@ -18,7 +18,7 @@ class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateSerializer
 
     def post(self, request, *args, **kwargs):
-        if len(request.data["username"]) < 6 or len(request.data["password"]) < 4:
+        if len(request.data["username"]) < 4 or len(request.data["password"]) < 4:
             body = {"message": "short field"}
             return Response(body, status=status.HTTP_400_BAD_REQUEST)
         serializer = self.get_serializer(data=request.data)
