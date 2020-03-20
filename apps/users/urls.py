@@ -13,7 +13,6 @@ app_name = 'users'
 urlpatterns = [
     path('', UserList.as_view(), name='user-list'),
     path('<int:pk>/', UserDetail.as_view(), name='user-detail'),
-    path('accounts/', include('knox.urls')),
     path('accounts/register/', RegistrationAPI.as_view(), name='user-register'),
     path('accounts/login/', LoginAPI.as_view(), name='user-login'),
     path('accounts/logout/', knox_views.LogoutView.as_view(), name='user-logout'),
