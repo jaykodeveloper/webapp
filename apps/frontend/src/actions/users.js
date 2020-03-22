@@ -1,23 +1,30 @@
 import axios from 'axios';
 import {returnErrors} from "./messages";
 
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL } from "./types";
+import { 
+    USER_LOADED, 
+    USER_LOADING, 
+    AUTH_ERROR, 
+    LOGIN_SUCCESS, 
+    LOGIN_FAIL,
+    LOGOUT_SUCCESS } from "./types";
 
 export const loadUser = () => (dispatch, getState) => {
     dispatch({ type: USER_LOADING })
     const token = getState().users.token;
+    const id = getState().users.id;
 
     const config = {
         headers: {
-            'Content-type': 'application/json'
+            'Content-Type': 'application/json'
         }
     }
 
     if(token) {
-        config.headers['Authorization'] = 'Token ${token}';
+        config.headers['Authorization'] = `Token ${token}`;
     }
 
-    axios.get('/api/users/', config)
+    axios.get(`/api/users/${id}`, config)
       .then(res => {
           dispatch({
               type: USER_LOADED,
@@ -41,7 +48,7 @@ export const login = (username, password) => dispatch =>{
     const body = JSON.stringify({username, password})
 
     axios
-      .post("/api/users/account/login", body, config)
+      .post("/api/users/accounts/login/", body, config)
       .then(res => {
           dispatch({
               type: LOGIN_SUCCESS,
@@ -53,5 +60,29 @@ export const login = (username, password) => dispatch =>{
           dispatch({
               type: LOGIN_FAIL
           })
+      })
+}
+
+export const logout = () => (dispatch, getState) => {
+    const token = getState().users.token;
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    if(token) {
+        config.headers["Authorization"] = `Token ${token}`
+    }
+
+    axios
+      .post("api/users/accounts/logout/", null, config)
+      .then(res => {
+          dispatch({
+              type: LOGOUT_SUCCESS
+          })
+      }).catch(err => {
+          dispatch(returnErrors(err.response.data, err.response.state))
       })
 }
