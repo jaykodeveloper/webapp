@@ -16,10 +16,12 @@ export class Alerts extends Component {
             if(error.msg.image) alert.error(`Image: ${error.msg.image.join()}`);
             if(error.msg.detail) alert.error("Credential needed!");
             if(error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
+            if(error.msg.username) alert.error(error.msg.username.join());
         }
         if(message !== prevProps.message){
             if(message.deletedBoard) alert.success(message.deletedBoard);
             if(message.addBoard) alert.success(message.addBoard);
+            if(message.passwordNotMatch) alert.error(message.passwordNotMatch);
         }
     }
     render(){
