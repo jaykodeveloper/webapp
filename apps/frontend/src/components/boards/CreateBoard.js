@@ -9,13 +9,19 @@ class CreateBoard extends Component {
         this.state = {
             title: '',
             body: '',
-            author: '',
-            image: null,
+            author: props.author.user.username,
+            image: null
         }
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.maxSelectFile = this.maxSelectFile.bind(this);
+        this.checkImageType = this.checkImageType.bind(this);
+        this.handleFileInput = this.handleFileInput.bind(this);
     }
 
     static propTypes = {
-        addBoard: PropTypes.func.isRequired
+        addBoard: PropTypes.func.isRequired,
+        // user: PropTypes.object.isRequired
     }
 
     onSubmit = (e) => {
@@ -63,16 +69,26 @@ class CreateBoard extends Component {
     }
 
     handleFileInput(e) {
-        var files = e.target.files
+        e.preventDefault();
+
+        let file = e.target.files[0];
+
         if (this.maxSelectFile(e) && this.checkImageType(e)) {
             this.setState({
-                image: files[0]
+                image: file
             })
         }
+
+        // var files = e.target.files
+        // if (this.maxSelectFile(e) && this.checkImageType(e)) {
+        //     this.setState({
+        //         image: files[0]
+        //     })
+        // }
     }
 
     render(){
-        const { title, body, author, image } = this.state;
+        const { title, body, image } = this.state;
         return (
             <div className="card card-body mt-4 mb-4">
                 <h2>Add board</h2>
@@ -111,7 +127,8 @@ class CreateBoard extends Component {
                         <button 
                           type="submit" 
                           className="btn btn-primary"
-                          onClick={this.onSubmit}>
+                        //   onClick={this.onSubmit}
+                          >
                             Submit
                         </button>
                     </div>
@@ -121,4 +138,9 @@ class CreateBoard extends Component {
     }
 }
 
-export default connect(null, {addBoard})(CreateBoard);
+const mapStateToProp = state => ({
+    author: state.users
+})
+
+// export default connect(null, {addBoard})(CreateBoard);
+export default connect(mapStateToProp, {addBoard})(CreateBoard);

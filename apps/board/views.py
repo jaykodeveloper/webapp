@@ -36,4 +36,11 @@ class BoardList(generics.ListCreateAPIView):
 class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    # TODO: it may need to back to previous setting
+    permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        return self.request.user.boards.all()
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

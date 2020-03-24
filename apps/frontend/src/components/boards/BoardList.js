@@ -1,16 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getBoards, deleteBoard } from "../../actions/boards"
+import { getBoards, deleteBoard, addBoard } from "../../actions/boards"
 
 export class BoardList extends Component {
     static propTypes = {
         boards: PropTypes.array.isRequired,
         getBoards: PropTypes.func.isRequired,
         deleteBoard: PropTypes.func.isRequired,
+        addBoard: PropTypes.func.isRequired
     }
     componentDidMount() {
         this.props.getBoards();
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        return this.props.boards !== nextProps.boards
     }
     render(){
         return (
@@ -28,7 +32,7 @@ export class BoardList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        { this.props.boards.map(board => (
+                        {this.props.boards.length > 0 && this.props.boards.map(board => (
                             <tr key={board.id}>
                                 <td>{board.id}</td>
                                 <td>{board.author}</td>
@@ -55,4 +59,4 @@ const mapStateToProps = state => ({
     boards: state.boards.boards,
 })
 
-export default connect(mapStateToProps, {getBoards, deleteBoard})(BoardList)
+export default connect(mapStateToProps, {getBoards, deleteBoard, addBoard})(BoardList)
