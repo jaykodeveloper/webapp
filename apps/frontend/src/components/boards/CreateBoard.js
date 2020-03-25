@@ -10,7 +10,7 @@ class CreateBoard extends Component {
             title: '',
             body: '',
             author: props.author.user.username,
-            image: null
+            image: ''
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -27,13 +27,13 @@ class CreateBoard extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const { title, body, author, image } = this.state;
-        const board = { title, body, author, image };
+        const board = { title, body, author, image: image };
         this.props.addBoard(board);
         this.setState({
             title:"",
             body: "",
-            author: "",
-            image: null
+            author: this.props.author.user.username,
+            image: ""
         })
     }
 
@@ -78,17 +78,10 @@ class CreateBoard extends Component {
                 image: file
             })
         }
-
-        // var files = e.target.files
-        // if (this.maxSelectFile(e) && this.checkImageType(e)) {
-        //     this.setState({
-        //         image: files[0]
-        //     })
-        // }
     }
 
     render(){
-        const { title, body, image } = this.state;
+        const { title, body } = this.state;
         return (
             <div className="card card-body mt-4 mb-4">
                 <h2>Add board</h2>
@@ -120,7 +113,7 @@ class CreateBoard extends Component {
                           type="file"
                           name="image"
                           onChange={this.handleFileInput}
-                          value={image}
+                        //   value={image}
                           />
                     </div>
                     <div className="form-group">

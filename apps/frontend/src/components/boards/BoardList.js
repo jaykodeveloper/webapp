@@ -13,9 +13,9 @@ export class BoardList extends Component {
     componentDidMount() {
         this.props.getBoards();
     }
-    shouldComponentUpdate(nextProps, nextState){
-        return this.props.boards !== nextProps.boards
-    }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     return this.props.boards !== nextProps.boards
+    // }
     render(){
         return (
             <Fragment>
@@ -56,7 +56,7 @@ export class BoardList extends Component {
 }
 
 const mapStateToProps = state => ({
-    boards: state.boards.boards,
+    boards: state.boards.boards.sort((boardA, boardB) => boardA.id > boardB.id),
 })
 
 export default connect(mapStateToProps, {getBoards, deleteBoard, addBoard})(BoardList)

@@ -33,15 +33,26 @@ export const deleteBoard = (id) => (dispatch, getState) => {
 }
 
 export const addBoard = board => (dispatch, getState) => {
-// export const addBoard = () => dispatch => {
+    const token = getState().users.token;
+
+    const config = {
+        headers: {
+            // "Content-Type": undefined
+            // "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data"
+        }
+    }
+    if(token) {
+        config.headers["Authorization"] = `Token ${token}`
+    }
+
     axios
-    //   .post("api/boards/")
-      .post("api/boards/",board, tokenConfig(getState))
+      .post("api/boards/", board, config)
       .then(res=> {
           dispatch(createMessage({ addBoard: "Board added"}));
           dispatch({
               type:ADD_BOARD,
-              paylod: res.data
+              payload: res.data
           })
       })
       .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));

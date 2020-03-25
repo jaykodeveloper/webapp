@@ -49,7 +49,9 @@ class BoardSerializer(serializers.HyperlinkedModelSerializer):
     #     read_only=True, 
     #     default=serializers.CurrentUserDefault()
     # )
-    image = Base64ImageField(max_length=None, use_url=True, required=False, allow_null=True)
+    # image = Base64ImageField(max_length=None, use_url=True, required=False, allow_null=True)
+    image = serializers.ImageField(max_length=None, use_url=True, required=False, allow_null=True)
+    
     author = serializers.ReadOnlyField(source='author.username')
     url = serializers.HyperlinkedIdentityField(
         view_name="board:board-detail",
