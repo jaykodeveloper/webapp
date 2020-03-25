@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addBoard } from '../../actions/boards';
+import axios from 'axios';
 
 class CreateBoard extends Component {
     constructor(props) {
@@ -28,12 +29,13 @@ class CreateBoard extends Component {
         e.preventDefault();
         const { title, body, author, image } = this.state;
         const board = { title, body, author, image: image };
+      
         this.props.addBoard(board);
         this.setState({
             title:"",
-            body: "",
-            author: this.props.author.user.username,
-            image: ""
+         body: "",
+        author: this.props.author.user.username,
+           image: ""
         })
     }
 

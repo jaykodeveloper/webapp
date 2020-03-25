@@ -33,21 +33,19 @@ export const deleteBoard = (id) => (dispatch, getState) => {
 }
 
 export const addBoard = board => (dispatch, getState) => {
-    const token = getState().users.token;
+    const token = getState().users.token;   
+    let boardBody = new FormData();
+    boardBody.set('title', board.title);
+    boardBody.append('image', board.image);
+    boardBody.set('body', board.body);
+    boardBody.set('author', board.author);
 
-    const config = {
-        headers: {
-            // "Content-Type": undefined
-            // "Content-Type": "application/json"
-            "Content-Type": "multipart/form-data"
-        }
-    }
-    if(token) {
-        config.headers["Authorization"] = `Token ${token}`
-    }
-
-    axios
-      .post("api/boards/", board, config)
+    axios({
+        method: 'POST',
+        url: "api/boards/",
+        data: boardBody,
+        headers: { "Content-Type": 'multipart/form-data', 'Authorization': `Token ${token}` }
+    })
       .then(res=> {
           dispatch(createMessage({ addBoard: "Board added"}));
           dispatch({
