@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addBoard } from '../../actions/boards';
-import axios from 'axios';
+import { addBoard, getBoards } from '../../actions/boards';
 
 class CreateBoard extends Component {
     constructor(props) {
@@ -22,7 +21,7 @@ class CreateBoard extends Component {
 
     static propTypes = {
         addBoard: PropTypes.func.isRequired,
-        // user: PropTypes.object.isRequired
+        getBoards: PropTypes.func.isRequired,
     }
 
     onSubmit = (e) => {
@@ -32,10 +31,10 @@ class CreateBoard extends Component {
       
         this.props.addBoard(board);
         this.setState({
-            title:"",
-         body: "",
-        author: this.props.author.user.username,
-           image: ""
+            title: "",
+            body: "",
+            author: this.props.author.user.username,
+            image: ""
         })
     }
 
@@ -115,14 +114,12 @@ class CreateBoard extends Component {
                           type="file"
                           name="image"
                           onChange={this.handleFileInput}
-                        //   value={image}
                           />
                     </div>
                     <div className="form-group">
                         <button 
                           type="submit" 
                           className="btn btn-primary"
-                        //   onClick={this.onSubmit}
                           >
                             Submit
                         </button>
@@ -137,5 +134,4 @@ const mapStateToProp = state => ({
     author: state.users
 })
 
-// export default connect(null, {addBoard})(CreateBoard);
-export default connect(mapStateToProp, {addBoard})(CreateBoard);
+export default connect(mapStateToProp, {addBoard, getBoards})(CreateBoard);

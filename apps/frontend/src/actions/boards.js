@@ -4,9 +4,7 @@ import { createMessage, returnErrors } from './messages'
 import { tokenConfig } from './users'
 
 export const getBoards = () => (dispatch, getState) => {
-// export const getBoards = () => dispatch => {
     axios
-    //   .get("api/boards/")
       .get("api/boards/", tokenConfig(getState))
       .then(res => {
           dispatch({
@@ -17,10 +15,8 @@ export const getBoards = () => (dispatch, getState) => {
       .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 }
 
-// export const deleteBoard = (id) => dispatch => {
 export const deleteBoard = (id) => (dispatch, getState) => {
     axios
-    //   .delete(`api/boards/${id}`)
       .delete(`api/boards/${id}`, tokenConfig(getState))
       .then(res => {
           dispatch(createMessage({ deleteBoard: "Board Deleted"}))
