@@ -12,7 +12,6 @@ import store from '../store';
 import Login from './users/Login'
 import SignUp from './users/SignUp'
 import PrivateRoute from './PrivateRoute'
-import Board from './boards/Board'
 import { loadUser } from '../actions/users'
 
 const alertOptions = {
@@ -37,7 +36,6 @@ class App extends Component {
                                     <PrivateRoute exact path="/" component={Dashboard} />
                                     <Route exact path="/register" component={SignUp} />
                                     <Route exact path="/login" component={Login} />
-                                    <Route exact path="/boards/:id" component={Board} />
                                 </Switch>
                             </div>
                         </Fragment>

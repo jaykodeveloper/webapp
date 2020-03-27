@@ -4,17 +4,26 @@ import PropTypes from 'prop-types';
 import { getBoard } from "../../actions/boards"
 
 export class Board extends Component {
-    constructor(props){
-        super(props)
+    static propTypes = {
+        getBoard : PropTypes.func.isRequired,
+        board: PropTypes.object
+    }
+
+    componentDidMount(){
+        this.props.getBoard();
     }
 
     render(){
         return(
             <div>
-                Hello
+            {this.props.board.title}
             </div>
         )
     }
 }
 
-export default Board;
+const mapStateToProps = state => ({
+    board: state.boards
+})
+
+export default connect(mapStateToProps, {getBoard})(Board)
