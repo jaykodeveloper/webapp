@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './Header'
 import Dashboard from './boards/Dashboard'
@@ -12,6 +12,7 @@ import store from '../store';
 import Login from './users/Login'
 import SignUp from './users/SignUp'
 import PrivateRoute from './PrivateRoute'
+import Board from './boards/Board'
 import { loadUser } from '../actions/users'
 
 const alertOptions = {
@@ -36,6 +37,7 @@ class App extends Component {
                                     <PrivateRoute exact path="/" component={Dashboard} />
                                     <Route exact path="/register" component={SignUp} />
                                     <Route exact path="/login" component={Login} />
+                                    <Route exact path="/boards/:id" component={Board} />
                                 </Switch>
                             </div>
                         </Fragment>

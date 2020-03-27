@@ -3,6 +3,18 @@ import { GET_BOARDS, DELETE_BOARD, ADD_BOARD } from './types'
 import { createMessage, returnErrors } from './messages'
 import { tokenConfig } from './users'
 
+export const getBoard = (id) => (dispatch, getState) => {
+    axios
+      .get(`api/boards/${id}`, tokenConfig(getState))
+      .then(res => {
+          dispatch({
+              type: GET_BOARDS,
+              payload: res.data
+          })
+      })
+      .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+}
+
 export const getBoards = () => (dispatch, getState) => {
     axios
       .get("api/boards/", tokenConfig(getState))

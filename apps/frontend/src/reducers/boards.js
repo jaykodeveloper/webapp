@@ -1,4 +1,4 @@
-import { GET_BOARDS, DELETE_BOARD, ADD_BOARD } from "../actions/types.js";
+import { GET_BOARDS, DELETE_BOARD, ADD_BOARD, GET_BOARD } from "../actions/types.js";
 
 const initialState = {
     boards : []
@@ -6,6 +6,11 @@ const initialState = {
 
 export default function(state=initialState, action) {
     switch (action.type) {
+        case GET_BOARD:
+            return {
+                ...state,
+                boards: action.payload
+            }
         case GET_BOARDS:
             return {
                 ...state,
