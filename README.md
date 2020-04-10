@@ -57,3 +57,12 @@ python manage.py runserver
    npm run dev
    ```
 
+## trouble shooting
+1. Since this app is still under development stage, debug mode is on.
+   - It means you can see the error message on the Internet browswer
+2. If you see the ProgrammingError relation  **board_board**  does not exist,
+   - run this python script
+     ```python
+     python manage.py makemigrations board # it will create table in the db
+     python manage.py migrate board # it will apply migrations
+     ```
